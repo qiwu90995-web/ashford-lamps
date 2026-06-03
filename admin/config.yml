@@ -3,7 +3,7 @@ backend:
   repo: qiwu90995-web/ashford-lamps
   branch: master
   base_url: https://ashford-replica.vercel.app
-  auth_endpoint: /api/auth
+  auth_endpoint: api/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
