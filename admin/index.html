@@ -404,7 +404,7 @@ function updateImagePreview() {
   const text = document.getElementById('prodImagesText').value;
   const urls = text.split('\n').filter(s => s.trim());
   document.getElementById('imgPreview').innerHTML = urls.map((u, i) =>
-    `<div class="img-preview-item"><img src="${u.trim()}" onerror="this.outerHTML='<div style=width:80px;height:80px;background:#fce8e6;border:1px solid #ddd;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#c5221f;>broken</div>'"><button onclick="removeImage(${i})">x</button></div>`
+    `<div class="img-preview-item"><img src="${u.trim()}?t=${Date.now()}" onerror="setTimeout(()=>{this.src=this.src.replace(/\\?t=.*/,'')+'?retry='+Date.now()},3000)" style="width:80px;height:80px;object-fit:cover;border-radius:4px;border:1px solid #ddd;"><button onclick="removeImage(${i})">x</button></div>`
   ).join('');
 }
 
