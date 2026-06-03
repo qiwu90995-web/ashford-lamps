@@ -1,11 +1,433 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content Manager — AshfordLamps</title>
+  <title>Admin — AshfordLamps</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+
+    .setup-panel { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+    .setup-panel h2 { font-size: 18px; margin-bottom: 12px; }
+    .setup-panel p { color: #666; margin-bottom: 12px; font-size: 14px; }
+    .setup-panel input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; margin-bottom: 12px; font-family: monospace; }
+    .setup-panel a { color: #0070f3; }
+
+    .toolbar { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; }
+    .btn-primary { background: #1a1a1a; color: #fff; }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary { background: #fff; border: 1px solid #ddd; }
+    .btn-secondary:hover { background: #f0f0f0; }
+    .btn-danger { background: #e00; color: #fff; }
+    .btn-danger:hover { background: #c00; }
+    .btn-small { padding: 6px 12px; font-size: 12px; }
+    .status { font-size: 13px; padding: 6px 12px; border-radius: 20px; }
+    .status-ok { background: #e6f4ea; color: #137333; }
+    .status-err { background: #fce8e6; color: #c5221f; }
+    .status-saving { background: #e8f0fe; color: #1967d2; }
+
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+    th, td { padding: 12px 16px; text-align: left; font-size: 14px; border-bottom: 1px solid #eee; }
+    th { background: #fafafa; font-weight: 600; color: #555; font-size: 12px; text-transform: uppercase; }
+    td img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+    tr:hover { background: #fafafa; }
+
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 12px; padding: 32px; max-width: 640px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .modal h2 { font-size: 20px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #555; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    .form-group textarea { min-height: 60px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+    .img-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .img-preview img { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+    .img-preview-item { position: relative; }
+    .img-preview-item button { position: absolute; top: -6px; right: -6px; background: #e00; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; line-height: 1; }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 200; opacity: 0; transition: opacity 0.3s; }
+    .toast.show { opacity: 1; }
+    .hidden { display: none; }
+
+    .token-bar { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 16px; margin-bottom: 20px; font-size: 13px; display: flex; align-items: center; gap: 12px; }
+    .token-bar button { background: none; border: none; color: #0070f3; cursor: pointer; font-size: 13px; text-decoration: underline; }
+
+    .collection-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .collection-tab { padding: 8px 16px; border: 1px solid #ddd; border-radius: 20px; cursor: pointer; font-size: 13px; background: #fff; }
+    .collection-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
+<div class="container">
+  <h1>AshfordLamps Admin</h1>
+  <p class="subtitle">Manage products, prices, and images. Changes save directly to GitHub.</p>
+
+  <!-- Token Setup -->
+  <div id="setupSection" class="setup-panel hidden">
+    <h2>Setup — GitHub Personal Access Token</h2>
+    <p>Create a token at <a href="https://github.com/settings/tokens/new?scopes=repo&description=AshfordLamps+Admin" target="_blank">github.com/settings/tokens/new</a></p>
+    <p>Select <strong>repo</strong> scope, set no expiration, click "Generate token", and paste it below:</p>
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    <button class="btn btn-primary" onclick="saveToken()">Save Token &amp; Load Products</button>
+  </div>
+
+  <div id="tokenStatusBar" class="token-bar hidden">
+    Using saved token. <button onclick="showSetup()">Change token</button>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden">
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="openAddProduct()">+ Add Product</button>
+      <button class="btn btn-secondary" onclick="loadProducts()">Reload from GitHub</button>
+      <span id="saveStatus" class="status status-ok">Loaded</span>
+    </div>
+
+    <div class="collection-tabs">
+      <button class="collection-tab active" onclick="filterProducts('all', this)">All</button>
+      <button class="collection-tab" onclick="filterProducts('fellowship', this)">Fellowship</button>
+      <button class="collection-tab" onclick="filterProducts('trainers-vault', this)">Trainer's Vault</button>
+      <button class="collection-tab" onclick="filterProducts('spirit-world', this)">Spirit World</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Collection</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="productTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h2 id="modalTitle">Edit Product</h2>
+    <form id="productForm" onsubmit="saveProduct(event)">
+      <input type="hidden" id="prodId" name="id">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" id="prodName" name="name" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Collection</label>
+          <select id="prodCollection" name="collection">
+            <option value="fellowship">Fellowship</option>
+            <option value="trainers-vault">Trainer's Vault</option>
+            <option value="spirit-world">Spirit World</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price Label</label>
+          <select id="prodPriceLabel" name="priceLabel">
+            <option value="from">From $XXX</option>
+            <option value="fixed">Fixed $XXX</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Regular Price ($)</label>
+          <input type="number" id="prodPriceRegular" name="priceRegular" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label>Sale Price ($)</label>
+          <input type="number" id="prodPriceSale" name="priceSale" step="0.01" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rating (1-5)</label>
+          <input type="number" id="prodRating" name="rating" min="1" max="5" value="5">
+        </div>
+        <div class="form-group">
+          <label>Review Count</label>
+          <input type="number" id="prodReviewCount" name="reviewCount" value="0">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Featured</label>
+          <select id="prodFeatured" name="featured">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Pre-order</label>
+          <select id="prodPreorder" name="preorder">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>In Stock</label>
+          <select id="prodInStock" name="inStock">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Sort Order</label>
+          <input type="number" id="prodSortOrder" name="sortOrder" value="99">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Image URLs (one per line, first is main image)</label>
+        <textarea id="prodImagesText" name="imagesText" rows="4" placeholder="https://example.com/image1.jpg"></textarea>
+        <div class="img-preview" id="imgPreview"></div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-danger btn-small hidden" id="deleteBtn" onclick="deleteProduct()">Delete</button>
+        <button type="submit" class="btn btn-primary">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const REPO = 'qiwu90995-web/ashford-lamps';
+const PRODUCTS_PATH = 'content/products.json';
+let products = [];
+let currentFilter = 'all';
+
+// --- Token Management ---
+function getToken() { return localStorage.getItem('gh-pat'); }
+function setToken(t) { localStorage.setItem('gh-pat', t); }
+function clearToken() { localStorage.removeItem('gh-pat'); }
+
+function showSetup() {
+  document.getElementById('setupSection').classList.remove('hidden');
+  document.getElementById('mainContent').classList.add('hidden');
+  document.getElementById('tokenStatusBar').classList.add('hidden');
+}
+
+function showMain() {
+  document.getElementById('setupSection').classList.add('hidden');
+  document.getElementById('mainContent').classList.remove('hidden');
+  document.getElementById('tokenStatusBar').classList.remove('hidden');
+}
+
+function saveToken() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (!t) return toast('Please enter a token');
+  setToken(t);
+  showMain();
+  loadProducts();
+}
+
+async function githubAPI(url, method = 'GET', body = null) {
+  const token = getToken();
+  if (!token) { showSetup(); throw new Error('No token'); }
+  const opts = {
+    method,
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  };
+  if (body) {
+    opts.headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(body);
+  }
+  const res = await fetch(`https://api.github.com/repos/${REPO}/${url}`, opts);
+  if (res.status === 401) { clearToken(); showSetup(); toast('Token invalid. Please re-enter.'); throw new Error('Unauthorized'); }
+  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `GitHub API error: ${res.status}`); }
+  return res.json();
+}
+
+// --- Product CRUD ---
+async function loadProducts() {
+  setStatus('Loading...', 'saving');
+  try {
+    const file = await githubAPI(`contents/${PRODUCTS_PATH}`);
+    const content = atob(file.content);
+    products = JSON.parse(content);
+    renderTable();
+    setStatus(`Loaded ${products.length} products`, 'ok');
+  } catch(e) {
+    setStatus('Error: ' + e.message, 'err');
+    console.error(e);
+  }
+}
+
+async function saveToGitHub() {
+  setStatus('Saving...', 'saving');
+  try {
+    const file = await githubAPI(`contents/${PRODUCTS_PATH}`);
+    const content = btoa(JSON.stringify(products, null, 2));
+    await githubAPI(`contents/${PRODUCTS_PATH}`, 'PUT', {
+      message: 'Update products via Admin',
+      content: content,
+      sha: file.sha
+    });
+    setStatus('Saved! Deploying to Vercel...', 'ok');
+    toast('Saved to GitHub — site will update in ~30s');
+  } catch(e) {
+    setStatus('Error saving: ' + e.message, 'err');
+    toast('Save failed: ' + e.message);
+  }
+}
+
+function setStatus(text, type) {
+  const el = document.getElementById('saveStatus');
+  el.textContent = text;
+  el.className = 'status status-' + type;
+}
+
+// --- Table Rendering ---
+function renderTable() {
+  const filtered = currentFilter === 'all' ? products : products.filter(p => p.collection === currentFilter);
+  const tbody = document.getElementById('productTable');
+  tbody.innerHTML = filtered.map(p => {
+    const img = (p.images && p.images.length > 0) ? p.images[0] : '';
+    const pricePrefix = p.priceLabel === 'from' ? 'From ' : '';
+    return `
+      <tr>
+        <td>${img ? `<img src="${img}" alt="">` : '—'}</td>
+        <td><strong>${esc(p.name)}</strong></td>
+        <td>${esc(p.collection)}</td>
+        <td>${pricePrefix}$${(p.priceSale||0).toFixed(2)} <span style="color:#999;text-decoration:line-through;font-size:12px">$${(p.priceRegular||0).toFixed(2)}</span></td>
+        <td>${p.preorder ? 'Pre-order' : (p.featured ? 'Featured' : '—')}</td>
+        <td>
+          <button class="btn btn-secondary btn-small" onclick="openEdit('${p.id}')">Edit</button>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function filterProducts(coll, btn) {
+  currentFilter = coll;
+  document.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// --- Product Editing ---
+function openEdit(id) {
+  const p = products.find(pp => pp.id === id);
+  if (!p) return;
+  document.getElementById('modalTitle').textContent = 'Edit: ' + p.name;
+  document.getElementById('prodId').value = p.id;
+  document.getElementById('prodName').value = p.name;
+  document.getElementById('prodCollection').value = p.collection;
+  document.getElementById('prodPriceLabel').value = p.priceLabel || 'from';
+  document.getElementById('prodPriceRegular').value = p.priceRegular;
+  document.getElementById('prodPriceSale').value = p.priceSale;
+  document.getElementById('prodRating').value = p.rating || 5;
+  document.getElementById('prodReviewCount').value = p.reviewCount || 0;
+  document.getElementById('prodFeatured').value = p.featured ? 'true' : 'false';
+  document.getElementById('prodPreorder').value = p.preorder ? 'true' : 'false';
+  document.getElementById('prodInStock').value = p.inStock !== false ? 'true' : 'false';
+  document.getElementById('prodSortOrder').value = p.sortOrder || 99;
+  document.getElementById('prodImagesText').value = (p.images || []).join('\n');
+  document.getElementById('deleteBtn').classList.remove('hidden');
+  updateImagePreview();
+  document.getElementById('editModal').classList.add('active');
+}
+
+function openAddProduct() {
+  document.getElementById('modalTitle').textContent = 'Add Product';
+  document.getElementById('productForm').reset();
+  document.getElementById('prodId').value = '';
+  document.getElementById('deleteBtn').classList.add('hidden');
+  document.getElementById('editModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('active');
+}
+
+function updateImagePreview() {
+  const text = document.getElementById('prodImagesText').value;
+  const urls = text.split('\n').filter(s => s.trim());
+  document.getElementById('imgPreview').innerHTML = urls.map((u, i) =>
+    `<div class="img-preview-item"><img src="${u.trim()}" onerror="this.style.display='none'"><button onclick="removeImage(${i})">x</button></div>`
+  ).join('');
+}
+
+function removeImage(i) {
+  const ta = document.getElementById('prodImagesText');
+  const lines = ta.value.split('\n').filter(s => s.trim());
+  lines.splice(i, 1);
+  ta.value = lines.join('\n');
+  updateImagePreview();
+}
+
+document.getElementById('prodImagesText').addEventListener('input', updateImagePreview);
+
+function saveProduct(e) {
+  e.preventDefault();
+  const id = document.getElementById('prodId').value;
+  const images = document.getElementById('prodImagesText').value.split('\n').filter(s => s.trim());
+  const data = {
+    id: id || document.getElementById('prodName').value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+    name: document.getElementById('prodName').value,
+    collection: document.getElementById('prodCollection').value,
+    preorder: document.getElementById('prodPreorder').value === 'true',
+    inStock: document.getElementById('prodInStock').value === 'true',
+    featured: document.getElementById('prodFeatured').value === 'true',
+    rating: parseInt(document.getElementById('prodRating').value) || 5,
+    reviewCount: parseInt(document.getElementById('prodReviewCount').value) || 0,
+    priceRegular: parseFloat(document.getElementById('prodPriceRegular').value) || 0,
+    priceSale: parseFloat(document.getElementById('prodPriceSale').value) || 0,
+    priceLabel: document.getElementById('prodPriceLabel').value,
+    savePercent: 0,
+    images: images,
+    sortOrder: parseInt(document.getElementById('prodSortOrder').value) || 99,
+  };
+  data.savePercent = Math.round((1 - data.priceSale / data.priceRegular) * 100);
+
+  if (id) {
+    const idx = products.findIndex(p => p.id === id);
+    if (idx >= 0) products[idx] = data;
+  } else {
+    products.push(data);
+  }
+
+  closeModal();
+  renderTable();
+  saveToGitHub();
+}
+
+function deleteProduct() {
+  const id = document.getElementById('prodId').value;
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  products = products.filter(p => p.id !== id);
+  closeModal();
+  renderTable();
+  saveToGitHub();
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// --- Init ---
+if (getToken()) { showMain(); loadProducts(); }
+else { showSetup(); }
+</script>
 </body>
 </html>
