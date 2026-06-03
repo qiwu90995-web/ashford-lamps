@@ -2,14 +2,14 @@ backend:
   name: github
   repo: qiwu90995-web/ashford-lamps
   branch: master
-  base_url: https://ashford-lamps.vercel.app
+  base_url: https://ashford-replica.vercel.app
   auth_endpoint: /api/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://ashford-lamps.vercel.app
-display_url: https://ashford-lamps.vercel.app
+site_url: https://ashford-replica.vercel.app
+display_url: https://ashford-replica.vercel.app
 locale: "en"
 
 collections:
