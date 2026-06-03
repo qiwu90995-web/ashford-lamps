@@ -440,8 +440,27 @@ function initLangSwitcher() {
 /* ============================================================
    DOM Ready
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Inject shared layout (header, footer, announcement, search)
+  if (typeof injectAnnouncementBar === 'function') injectAnnouncementBar();
+  if (typeof injectHeader === 'function') injectHeader();
+  if (typeof injectFooter === 'function') injectFooter();
+  if (typeof injectSearchModal === 'function') injectSearchModal();
+
+  // 2. Initialize i18n and translate static content
   initLangSwitcher();
+
+  // 3. Load data and render dynamic content
+  if (typeof loadAllData === 'function') {
+    await loadAllData();
+    if (typeof renderProductContainers === 'function') renderProductContainers();
+    if (typeof renderProductDetail === 'function') renderProductDetail();
+  }
+
+  // 4. Re-translate to cover dynamically rendered content
+  if (typeof translatePage === 'function') translatePage(getCurrentLang());
+
+  // 5. Initialize interactive components
   initAnnouncementMarquee();
   initMobileMenu();
   initSearchModal();

@@ -1,0 +1,49 @@
+{
+  "collections": [
+    {
+      "id": "fellowship",
+      "name": "The Fellowship Collection",
+      "nameKey": "home.fellowship",
+      "image": "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212423_ccec30d0-04b5-46dc-8334-344abaefcf26.png?v=1773523690&width=750",
+      "slug": "fellowship",
+      "sortOrder": 1
+    },
+    {
+      "id": "trainers-vault",
+      "name": "The Trainer's Vault Collection",
+      "nameKey": "home.trainers",
+      "image": "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212557_21300d40-64e4-4552-a926-fc65e4288ba0.png?v=1773523477&width=750",
+      "slug": "trainers-vault",
+      "sortOrder": 2
+    },
+    {
+      "id": "spirit-world",
+      "name": "The Spirit World Collection",
+      "nameKey": "home.spirit",
+      "image": "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212514_b5908c92-3b23-4710-9254-32b8beea4ea7.png?v=1773523515&width=750",
+      "slug": "spirit-world",
+      "sortOrder": 3
+    }
+  ],
+  "announcement": {
+    "messages": [
+      "Flash sale : 45% off",
+      "FREE Shipping Worldwide !",
+      "Artisan-crafted",
+      "ORDER NOW"
+    ]
+  },
+  "banners": [
+    {
+      "titleKey": "home.light_banner",
+      "subtitleKey": "home.light_sub",
+      "image": ""
+    },
+    {
+      "titleKey": "home.world_banner",
+      "subtitleKey": "home.world_sub",
+      "image": ""
+    }
+  ],
+  "brandStoryKey": "home.story"
+}

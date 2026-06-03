@@ -1,0 +1,275 @@
+[
+  {
+    "id": "darklord",
+    "name": "Ashfordlamps-DarkLord",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 26,
+    "priceRegular": 1099.00,
+    "priceSale": 577.00,
+    "priceLabel": "from",
+    "savePercent": 47,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212423_ccec30d0-04b5-46dc-8334-344abaefcf26.png?v=1773523690&width=750",
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212423_ccec30d0-04b5-46dc-8334-344abaefcf26.png?v=1773523690&width=750",
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212358_de962275-67e9-4f74-8d0b-2d590dcdd8be.png?v=1773523682&width=750",
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212438_f3f2f9d4-60e2-4966-a6b2-43e576211f0f.png?v=1773523689&width=750"
+    ],
+    "sortOrder": 1
+  },
+  {
+    "id": "whitewizard",
+    "name": "Ashfordlamps-WhiteWizard",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 18,
+    "priceRegular": 1099.00,
+    "priceSale": 577.00,
+    "priceLabel": "from",
+    "savePercent": 47,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212358_de962275-67e9-4f74-8d0b-2d590dcdd8be.png?v=1773523682&width=750"
+    ],
+    "sortOrder": 2
+  },
+  {
+    "id": "preciousgrasp",
+    "name": "Ashfordlamps-PreciousGrasp",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 22,
+    "priceRegular": 1099.00,
+    "priceSale": 564.00,
+    "priceLabel": "from",
+    "savePercent": 48,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212438_f3f2f9d4-60e2-4966-a6b2-43e576211f0f.png?v=1773523689&width=750"
+    ],
+    "sortOrder": 3
+  },
+  {
+    "id": "dragonsiege",
+    "name": "Ashfordlamps-DragonSiege",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 15,
+    "priceRegular": 1099.00,
+    "priceSale": 598.00,
+    "priceLabel": "from",
+    "savePercent": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212343_6a97c03c-219f-45a4-9753-3a03989f26c9.png?v=1773523721&width=750"
+    ],
+    "sortOrder": 4
+  },
+  {
+    "id": "mountdoom",
+    "name": "Ashfordlamps-MountDoom",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 30,
+    "priceRegular": 962.00,
+    "priceSale": 550.00,
+    "priceLabel": "from",
+    "savePercent": 42,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_61165a95-b0c5-43b0-96a7-8efdacf790ec.png?v=1773523719&width=750"
+    ],
+    "sortOrder": 5
+  },
+  {
+    "id": "thunderflame",
+    "name": "Ashfordlamps-ThunderFlame",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": false,
+    "rating": 5,
+    "reviewCount": 12,
+    "priceRegular": 1786.00,
+    "priceSale": 962.00,
+    "priceLabel": "from",
+    "savePercent": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212541_78d20943-1f6d-4f6a-baf6-b7d210c0f483.png?v=1773523520&width=750"
+    ],
+    "sortOrder": 6
+  },
+  {
+    "id": "serpentsbond",
+    "name": "Ashfordlamps-SerpentsBond",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": false,
+    "rating": 5,
+    "reviewCount": 8,
+    "priceRegular": 1099.00,
+    "priceSale": 605.00,
+    "priceLabel": "from",
+    "savePercent": 44,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212532_4de93532-9ce4-4e8d-89ef-723ac86cbf1a.png?v=1773523518&width=750"
+    ],
+    "sortOrder": 7
+  },
+  {
+    "id": "umbrellavow",
+    "name": "Ashfordlamps-UmbrellaVow",
+    "collection": "fellowship",
+    "preorder": false,
+    "inStock": true,
+    "featured": false,
+    "rating": 5,
+    "reviewCount": 10,
+    "priceRegular": 1099.00,
+    "priceSale": 598.00,
+    "priceLabel": "from",
+    "savePercent": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212546_5e13f5f0-c855-4b26-a7d8-4357e9c02d65.png?v=1773523550&width=750"
+    ],
+    "sortOrder": 8
+  },
+  {
+    "id": "shadoworb",
+    "name": "[PRE-ORDER] Ashfordlamps-ShadowOrb",
+    "collection": "trainers-vault",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 5,
+    "priceRegular": 756.00,
+    "priceSale": 454.00,
+    "priceLabel": "fixed",
+    "savePercent": 39,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212557_21300d40-64e4-4552-a926-fc65e4288ba0.png?v=1773523477&width=750"
+    ],
+    "sortOrder": 1
+  },
+  {
+    "id": "heavyslumber",
+    "name": "[PRE-ORDER] Ashfordlamps-HeavySlumber",
+    "collection": "trainers-vault",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 7,
+    "priceRegular": 1031.00,
+    "priceSale": 667.00,
+    "priceLabel": "from",
+    "savePercent": 35,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212607_e0bc8319-b01a-42e7-b719-7ce03effa4ef.png?v=1773523478&width=750"
+    ],
+    "sortOrder": 2
+  },
+  {
+    "id": "moonlitshadow",
+    "name": "[PRE-ORDER] Ashfordlamps-MoonlitShadow",
+    "collection": "trainers-vault",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 6,
+    "priceRegular": 1031.00,
+    "priceSale": 667.00,
+    "priceLabel": "from",
+    "savePercent": 35,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212617_b71408bf-6d9f-4c27-9f05-c73ea28d26e7.png?v=1773523488&width=750"
+    ],
+    "sortOrder": 3
+  },
+  {
+    "id": "infernowing",
+    "name": "[PRE-ORDER] Ashfordlamps-InfernoWing",
+    "collection": "trainers-vault",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 4,
+    "priceRegular": 2061.00,
+    "priceSale": 962.00,
+    "priceLabel": "fixed",
+    "savePercent": 53,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212626_3fe4ee34-393f-4bf2-8182-333e6896dab6.png?v=1773523484&width=750"
+    ],
+    "sortOrder": 4
+  },
+  {
+    "id": "mushroomhollow",
+    "name": "[PRE-ORDER] Ashfordlamps-MushroomHollow",
+    "collection": "spirit-world",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 3,
+    "priceRegular": 1099.00,
+    "priceSale": 598.00,
+    "priceLabel": "from",
+    "savePercent": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212514_b5908c92-3b23-4710-9254-32b8beea4ea7.png?v=1773523515&width=750"
+    ],
+    "sortOrder": 1
+  },
+  {
+    "id": "meadowkeeper",
+    "name": "[PRE-ORDER] Ashfordlamps-MeadowKeeper",
+    "collection": "spirit-world",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 2,
+    "priceRegular": 2054.00,
+    "priceSale": 790.00,
+    "priceLabel": "fixed",
+    "savePercent": 61,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212505_fff91fca-cd02-4faa-80e7-978221f2b9ba.png?v=1773523513&width=750"
+    ],
+    "sortOrder": 2
+  },
+  {
+    "id": "whisperwoods",
+    "name": "[PRE-ORDER] Ashfordlamps-WhisperWoods",
+    "collection": "spirit-world",
+    "preorder": true,
+    "inStock": false,
+    "featured": true,
+    "rating": 5,
+    "reviewCount": 4,
+    "priceRegular": 1099.00,
+    "priceSale": 598.00,
+    "priceLabel": "from",
+    "savePercent": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212521_ff764398-98c8-4e44-9ed5-68e76704339f.png?v=1773523517&width=750"
+    ],
+    "sortOrder": 3
+  }
+]
