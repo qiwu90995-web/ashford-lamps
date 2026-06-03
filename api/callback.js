@@ -29,15 +29,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.error_description || data.error });
     }
 
-    const params = new URLSearchParams({
-      provider: 'github',
-      access_token: data.access_token,
-      token_type: 'bearer',
-    });
-
+    // Decap CMS expects #access_token=...&token_type=bearer
     res.writeHead(302, {
-      Location: `/admin/#${params}`,
+      Location: `/admin/#access_token=${data.access_token}&token_type=bearer`,
     });
+    res.end();
     res.end();
   } catch (err) {
     res.status(500).json({ error: err.message });
