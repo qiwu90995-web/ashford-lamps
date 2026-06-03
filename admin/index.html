@@ -84,6 +84,14 @@
 
   <!-- Main Content -->
   <div id="mainContent" class="hidden">
+    <!-- Tab switcher -->
+    <div style="display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #e0e0e0;">
+      <button class="tab-btn active" onclick="switchTab('products', this)" style="padding:10px 24px;border:none;background:none;font-size:15px;font-weight:600;cursor:pointer;border-bottom:2px solid #1a1a1a;margin-bottom:-2px;">Products</button>
+      <button class="tab-btn" onclick="switchTab('settings', this)" style="padding:10px 24px;border:none;background:none;font-size:15px;font-weight:600;cursor:pointer;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;">Site Settings</button>
+    </div>
+
+    <!-- Products Panel -->
+    <div id="productsPanel">
     <div class="toolbar">
       <button class="btn btn-primary" onclick="openAddProduct()">+ Add Product</button>
       <button class="btn btn-secondary" onclick="loadProducts()">Reload from GitHub</button>
@@ -110,8 +118,34 @@
       </thead>
       <tbody id="productTable"></tbody>
     </table>
-  </div>
-</div>
+    </div><!-- /productsPanel -->
+
+    <!-- Site Settings Panel -->
+    <div id="settingsPanel" class="hidden">
+      <div class="setup-panel">
+        <h2>Collections</h2>
+        <p style="color:#666;margin-bottom:16px;font-size:14px;">Edit collection names and images shown on the homepage.</p>
+        <div id="collectionsEditor"></div>
+      </div>
+
+      <div class="setup-panel" style="margin-top:16px;">
+        <h2>Announcement Bar</h2>
+        <p style="color:#666;margin-bottom:16px;font-size:14px;">Messages scrolling in the green bar at the top of every page.</p>
+        <div id="announcementEditor"></div>
+        <button class="btn btn-secondary btn-small" onclick="addAnnouncementMsg()" style="margin-top:8px;">+ Add Message</button>
+      </div>
+
+      <div class="setup-panel" style="margin-top:16px;">
+        <h2>Homepage Banners</h2>
+        <p style="color:#666;margin-bottom:16px;font-size:14px;">Text and images in the two banner sections.</p>
+        <div id="bannersEditor"></div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <button class="btn btn-primary" onclick="saveSiteSettings()">Save Site Settings</button>
+        <span id="settingsStatus" style="margin-left:12px;font-size:14px;color:#666;"></span>
+      </div>
+    </div><!-- /settingsPanel -->
 
 <!-- Edit Modal -->
 <div class="modal-overlay" id="editModal">
@@ -208,7 +242,9 @@
 <script>
 const REPO = 'qiwu90995-web/ashford-lamps';
 const PRODUCTS_PATH = 'content/products.json';
+const GENERAL_PATH = 'content/general.json';
 let products = [];
+let generalSettings = null;
 let currentFilter = 'all';
 
 // --- Token Management ---
@@ -423,6 +459,153 @@ function toast(msg) {
   el.textContent = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// --- Tab Switching ---
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.borderBottom = '2px solid transparent';
+    b.style.color = '#666';
+  });
+  btn.classList.add('active');
+  btn.style.borderBottom = '2px solid #1a1a1a';
+  btn.style.color = '#1a1a1a';
+
+  document.getElementById('productsPanel').classList.toggle('hidden', tab !== 'products');
+  document.getElementById('settingsPanel').classList.toggle('hidden', tab !== 'settings');
+
+  if (tab === 'settings') loadSiteSettings();
+}
+
+// --- Site Settings ---
+async function loadSiteSettings() {
+  document.getElementById('settingsStatus').textContent = 'Loading...';
+  try {
+    const file = await githubAPI(`contents/${GENERAL_PATH}`);
+    const content = atob(file.content);
+    generalSettings = JSON.parse(content);
+    generalSettings._sha = file.sha;
+    renderCollectionsEditor();
+    renderAnnouncementEditor();
+    renderBannersEditor();
+    document.getElementById('settingsStatus').textContent = 'Loaded';
+  } catch(e) {
+    document.getElementById('settingsStatus').textContent = 'Error: ' + e.message;
+  }
+}
+
+function renderCollectionsEditor() {
+  const cols = generalSettings.collections || [];
+  document.getElementById('collectionsEditor').innerHTML = cols.map((c, i) => `
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 80px;gap:8px;margin-bottom:8px;align-items:end;">
+      <div>
+        <label style="font-size:11px;color:#999;">Collection Name</label>
+        <input value="${esc(c.name)}" data-col="${i}" data-field="name" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:#999;">i18n Key (don't change)</label>
+        <input value="${esc(c.nameKey)}" data-col="${i}" data-field="nameKey" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+      </div>
+      <div>
+        <label style="font-size:11px;color:#999;">Image URL</label>
+        <input value="${esc(c.image||'')}" data-col="${i}" data-field="image" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+      </div>
+      <button class="btn btn-danger btn-small" onclick="removeCollection(${i})" style="height:32px;">Del</button>
+    </div>
+  `).join('');
+}
+
+function removeCollection(i) {
+  if (!confirm('Remove this collection?')) return;
+  generalSettings.collections.splice(i, 1);
+  renderCollectionsEditor();
+}
+
+function renderAnnouncementEditor() {
+  const msgs = (generalSettings.announcement && generalSettings.announcement.messages) || [];
+  document.getElementById('announcementEditor').innerHTML = msgs.map((m, i) => `
+    <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center;">
+      <input value="${esc(typeof m === 'string' ? m : m.text || '')}" data-ann="${i}" style="flex:1;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+      <button class="btn btn-danger btn-small" onclick="removeAnnouncement(${i})">Del</button>
+    </div>
+  `).join('');
+}
+
+function addAnnouncementMsg() {
+  if (!generalSettings.announcement) generalSettings.announcement = { messages: [] };
+  generalSettings.announcement.messages.push('');
+  renderAnnouncementEditor();
+}
+
+function removeAnnouncement(i) {
+  generalSettings.announcement.messages.splice(i, 1);
+  renderAnnouncementEditor();
+}
+
+function renderBannersEditor() {
+  const banners = generalSettings.banners || [];
+  document.getElementById('bannersEditor').innerHTML = banners.map((b, i) => `
+    <div style="background:#f9f9f9;padding:12px;border-radius:8px;margin-bottom:12px;">
+      <strong style="font-size:14px;">Banner ${i + 1}</strong>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+        <div>
+          <label style="font-size:11px;color:#999;">Title i18n Key</label>
+          <input value="${esc(b.titleKey)}" data-ban="${i}" data-field="titleKey" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+        </div>
+        <div>
+          <label style="font-size:11px;color:#999;">Subtitle i18n Key</label>
+          <input value="${esc(b.subtitleKey)}" data-ban="${i}" data-field="subtitleKey" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+        </div>
+      </div>
+      <div style="margin-top:6px;">
+        <label style="font-size:11px;color:#999;">Background Image URL</label>
+        <input value="${esc(b.image||'')}" data-ban="${i}" data-field="image" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+      </div>
+    </div>
+  `).join('');
+}
+
+async function saveSiteSettings() {
+  // Read values back from inputs
+  document.querySelectorAll('[data-col]').forEach(inp => {
+    const i = parseInt(inp.dataset.col);
+    const field = inp.dataset.field;
+    if (!generalSettings.collections[i]) return;
+    generalSettings.collections[i][field] = inp.value;
+  });
+
+  document.querySelectorAll('[data-ann]').forEach(inp => {
+    const i = parseInt(inp.dataset.ann);
+    const val = inp.value;
+    if (generalSettings.announcement && generalSettings.announcement.messages[i] !== undefined) {
+      generalSettings.announcement.messages[i] = typeof generalSettings.announcement.messages[i] === 'string' ? val : { text: val };
+    }
+  });
+
+  document.querySelectorAll('[data-ban]').forEach(inp => {
+    const i = parseInt(inp.dataset.ban);
+    const field = inp.dataset.field;
+    if (generalSettings.banners && generalSettings.banners[i]) {
+      generalSettings.banners[i][field] = inp.value;
+    }
+  });
+
+  document.getElementById('settingsStatus').textContent = 'Saving...';
+  try {
+    const content = btoa(JSON.stringify(generalSettings, null, 2));
+    const sha = generalSettings._sha;
+    delete generalSettings._sha;
+    await githubAPI(`contents/${GENERAL_PATH}`, 'PUT', {
+      message: 'Update site settings via Admin',
+      content: content,
+      sha: sha
+    });
+    generalSettings._sha = (await githubAPI(`contents/${GENERAL_PATH}`)).sha;
+    document.getElementById('settingsStatus').textContent = 'Saved! Site will update in ~30s.';
+  } catch(e) {
+    document.getElementById('settingsStatus').textContent = 'Error: ' + e.message;
+  }
 }
 
 // --- Init ---
