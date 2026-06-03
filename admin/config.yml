@@ -51,13 +51,6 @@ collections:
               - label: "Images"
                 name: "images"
                 widget: "list"
-                summary: "Image {{index}}"
-                field:
-                  label: "Image URL"
-                  name: "url"
-                  widget: "string"
-                fields:
-                  - {label: "Image URL", name: "url", widget: "string"}
               - {label: "Sort Order", name: "sortOrder", widget: "number", value_type: "int", default: 99}
 
   - name: "settings"
@@ -75,12 +68,6 @@ collections:
               - label: "Messages"
                 name: "messages"
                 widget: "list"
-                field:
-                  label: "Text"
-                  name: "text"
-                  widget: "string"
-                fields:
-                  - {label: "Text", name: "text", widget: "string"}
           - label: "Collections"
             name: "collections"
             widget: "list"
