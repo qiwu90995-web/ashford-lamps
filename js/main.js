@@ -453,6 +453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 3. Load data and render dynamic content
   if (typeof loadAllData === 'function') {
     await loadAllData();
+    if (typeof renderCollectionCards === 'function') renderCollectionCards();
     if (typeof renderProductContainers === 'function') renderProductContainers();
     if (typeof renderProductDetail === 'function') renderProductDetail();
   }
