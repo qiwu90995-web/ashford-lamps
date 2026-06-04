@@ -170,7 +170,7 @@ function renderCollectionCards() {
         <div class="collection-card__image">
           <img src="${escAttr(c.image || '')}" alt="${escAttr(c.name || '')}" loading="lazy">
           <div class="collection-card__overlay">
-            <h3${c.nameKey ? ` data-i18n="${escAttr(c.nameKey)}"` : ''}>${escHtml(c.name || '')}</h3>
+            <h3>${escHtml(c.name || '')}</h3>
           </div>
         </div>
       </a>
