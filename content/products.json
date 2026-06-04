@@ -41,19 +41,22 @@
   },
   {
     "id": "preciousgrasp",
-    "name": "Ashfordlamps-PreciousGrasp",
+    "name": "Astronaut & Galaxy Deep Space Resin Lamp",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 22,
-    "priceRegular": 1099,
-    "priceSale": 564,
+    "reviewCount": 12,
+    "priceRegular": 320,
+    "priceSale": 118,
     "priceLabel": "from",
-    "savePercent": 48,
+    "savePercent": 63,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212438_f3f2f9d4-60e2-4966-a6b2-43e576211f0f.png?v=1773523689&width=750"
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212438_f3f2f9d4-60e2-4966-a6b2-43e576211f0f.png?v=1773523689&width=750",
+      "https://ashford-replica.vercel.app/images/uploads/1780553418580_1_1.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553421500_2_7.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553423773_3_11.jpg"
     ],
     "sortOrder": 3
   },
