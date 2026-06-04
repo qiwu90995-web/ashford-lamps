@@ -282,18 +282,25 @@ function saveToken() {
 async function githubAPI(url, method = 'GET', body = null) {
   const token = getToken();
   if (!token) { showSetup(); throw new Error('No token'); }
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
   const opts = {
     method,
-    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' },
+    signal: controller.signal
   };
   if (body) {
     opts.headers['Content-Type'] = 'application/json';
     opts.body = JSON.stringify(body);
   }
-  const res = await fetch(`https://api.github.com/repos/${REPO}/${url}`, opts);
-  if (res.status === 401) { clearToken(); showSetup(); toast('Token invalid. Please re-enter.'); throw new Error('Unauthorized'); }
-  if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `GitHub API error: ${res.status}`); }
-  return res.json();
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/${url}`, opts);
+    if (res.status === 401) { clearToken(); showSetup(); toast('Token invalid. Please re-enter.'); throw new Error('Unauthorized'); }
+    if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `GitHub API error: ${res.status}`); }
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 // --- Product CRUD ---
