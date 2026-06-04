@@ -13,69 +13,61 @@
     "priceLabel": "from",
     "savePercent": 68,
     "images": [
-      "https://ashford-replica.vercel.app/images/uploads/1780476509563_1.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780479331142_1_19.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780479370059_1_7.jpg"
+      "https://qiwu90995-web.github.io/ashford-lamps/images/uploads/1780476509563_1.jpg"
     ],
     "sortOrder": 1
   },
   {
     "id": "whitewizard",
-    "name": "Dolphin & Clownfish Deep Ocean Diorama Resin Lamp",
+    "name": "Ashfordlamps-WhiteWizard",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 16,
-    "priceRegular": 365,
-    "priceSale": 128,
+    "reviewCount": 18,
+    "priceRegular": 1099,
+    "priceSale": 577,
     "priceLabel": "from",
-    "savePercent": 65,
+    "savePercent": 47,
     "images": [
-      "https://ashford-replica.vercel.app/images/uploads/1780554338100_1_2.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780554347129_2_7.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780554349936_3_11.jpg"
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212358_de962275-67e9-4f74-8d0b-2d590dcdd8be.png?v=1773523682&width=750"
     ],
     "sortOrder": 2
   },
   {
     "id": "preciousgrasp",
-    "name": "Astronaut & Galaxy Deep Space Resin Lamp",
+    "name": "Ashfordlamps-PreciousGrasp",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 12,
-    "priceRegular": 320,
-    "priceSale": 118,
+    "reviewCount": 22,
+    "priceRegular": 1099,
+    "priceSale": 564,
     "priceLabel": "from",
-    "savePercent": 63,
+    "savePercent": 48,
     "images": [
-      "https://ashford-replica.vercel.app/images/uploads/1780553418580_1_1.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780553421500_2_7.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780553423773_3_11.jpg"
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212438_f3f2f9d4-60e2-4966-a6b2-43e576211f0f.png?v=1773523689&width=750"
     ],
     "sortOrder": 3
   },
   {
     "id": "dragonsiege",
-    "name": "Spaceman & Nebula Cosmic Resin Lamp",
+    "name": "Ashfordlamps-DragonSiege",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 14,
-    "priceRegular": 356,
-    "priceSale": 118,
+    "reviewCount": 15,
+    "priceRegular": 1099,
+    "priceSale": 598,
     "priceLabel": "from",
-    "savePercent": 67,
+    "savePercent": 45,
     "images": [
-      "https://ashford-replica.vercel.app/images/uploads/1780553545374_1_2.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780553548873_2_10.jpg",
-      "https://ashford-replica.vercel.app/images/uploads/1780553551734_3_11.jpg"
+      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212343_6a97c03c-219f-45a4-9753-3a03989f26c9.png?v=1773523721&width=750"
     ],
     "sortOrder": 4
   },
