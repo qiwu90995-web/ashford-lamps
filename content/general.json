@@ -2,9 +2,9 @@
   "collections": [
     {
       "id": "fellowship",
-      "name": "123123",
+      "name": "The Infinite Deep Series",
       "nameKey": "home.fellowship",
-      "image": "Uploading...",
+      "image": "images/uploads/1780476509563_1.jpg",
       "slug": "fellowship",
       "sortOrder": 1
     },

@@ -633,8 +633,9 @@ function uploadImageToField(event, targetInput) {
   input.onchange = async () => {
     const file = input.files[0];
     if (!file) return;
+    const origValue = targetInput.value;
     targetInput.style.background = '#fff3cd';
-    targetInput.value = 'Uploading...';
+    targetInput.placeholder = 'Uploading...';
 
     let base64;
     try {
@@ -645,7 +646,8 @@ function uploadImageToField(event, targetInput) {
         reader.readAsDataURL(file);
       });
     } catch(e) {
-      targetInput.value = '';
+      targetInput.value = origValue;
+      targetInput.placeholder = '';
       targetInput.style.background = '#fce8e6';
       toast('Upload failed: ' + e.message);
       return;
@@ -664,7 +666,8 @@ function uploadImageToField(event, targetInput) {
       targetInput.style.background = '#e6f4ea';
       setTimeout(() => { targetInput.style.background = ''; }, 2000);
     } catch(e) {
-      targetInput.value = '';
+      targetInput.value = origValue;
+      targetInput.placeholder = '';
       targetInput.style.background = '#fce8e6';
       toast('Upload failed: ' + e.message);
     }
