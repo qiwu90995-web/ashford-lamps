@@ -511,12 +511,15 @@ function renderCollectionsEditor() {
         <input value="${esc(c.name)}" data-col="${i}" data-field="name" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
       </div>
       <div>
-        <label style="font-size:11px;color:#999;">i18n Key (don't change)</label>
+        <label style="font-size:11px;color:#999;">i18n Key</label>
         <input value="${esc(c.nameKey)}" data-col="${i}" data-field="nameKey" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
       </div>
       <div>
         <label style="font-size:11px;color:#999;">Image URL</label>
-        <input value="${esc(c.image||'')}" data-col="${i}" data-field="image" style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+        <div style="display:flex;gap:4px;">
+          <input value="${esc(c.image||'')}" data-col="${i}" data-field="image" style="flex:1;padding:6px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;">
+          <button class="btn btn-secondary btn-small" onclick="uploadImageToField(event, this.parentElement.querySelector('input'))" style="white-space:nowrap;flex-shrink:0;" title="Upload image">Upload</button>
+        </div>
       </div>
       <button class="btn btn-danger btn-small" onclick="removeCollection(${i})" style="height:32px;">Del</button>
     </div>
@@ -613,6 +616,53 @@ async function saveSiteSettings() {
   } catch(e) {
     document.getElementById('settingsStatus').textContent = 'Error: ' + e.message;
   }
+}
+
+// --- Single Image Upload for Site Settings ---
+function uploadImageToField(event, targetInput) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+    targetInput.style.background = '#fff3cd';
+    targetInput.value = 'Uploading...';
+
+    let base64;
+    try {
+      base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result.split(',')[1]);
+        reader.onerror = () => reject(new Error('Read failed'));
+        reader.readAsDataURL(file);
+      });
+    } catch(e) {
+      targetInput.value = '';
+      targetInput.style.background = '#fce8e6';
+      toast('Upload failed: ' + e.message);
+      return;
+    }
+
+    const ts = Date.now();
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
+    const path = `images/uploads/${ts}_${safeName}`;
+
+    try {
+      await githubAPI(`contents/${path}`, 'PUT', {
+        message: `Upload ${file.name} via Admin`,
+        content: base64
+      });
+      targetInput.value = `https://ashford-replica.vercel.app/${path}`;
+      targetInput.style.background = '#e6f4ea';
+      setTimeout(() => { targetInput.style.background = ''; }, 2000);
+    } catch(e) {
+      targetInput.value = '';
+      targetInput.style.background = '#fce8e6';
+      toast('Upload failed: ' + e.message);
+    }
+  };
+  input.click();
 }
 
 // --- Image Upload ---
