@@ -2,9 +2,9 @@
   "collections": [
     {
       "id": "fellowship",
-      "name": "The Fellowship Collection",
+      "name": "The Infinite Deep Series",
       "nameKey": "home.fellowship",
-      "image": "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212423_ccec30d0-04b5-46dc-8334-344abaefcf26.png?v=1773523690&width=750",
+      "image": "https://ashford-replica.vercel.app/images/uploads/1780554969324_3.jpg",
       "slug": "fellowship",
       "sortOrder": 1
     },
@@ -45,5 +45,6 @@
       "image": ""
     }
   ],
-  "brandStoryKey": "home.story"
+  "brandStoryKey": "home.story",
+  "_sha": "3cdfd4f0b33859ab443feb8866162726fbb2890e"
 }
