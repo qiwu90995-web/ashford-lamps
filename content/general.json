@@ -4,7 +4,7 @@
       "id": "fellowship",
       "name": "The Infinite Deep Series",
       "nameKey": "home.fellowship",
-      "image": "https://ashford-replica.vercel.app/images/uploads/1780555088758_1.jpg",
+      "image": "Uploading...",
       "slug": "fellowship",
       "sortOrder": 1
     },
@@ -46,5 +46,5 @@
     }
   ],
   "brandStoryKey": "home.story",
-  "_sha": "4c5f4452236578f6f2072c081d899bf7ddd8595e"
+  "_sha": "48dea5d7053da1d60e692b2b6df00b49cda6fad1"
 }
