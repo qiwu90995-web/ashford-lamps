@@ -21,19 +21,21 @@
   },
   {
     "id": "whitewizard",
-    "name": "Ashfordlamps-WhiteWizard",
+    "name": "Dolphin & Clownfish Deep Ocean Diorama Resin Lamp",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 18,
-    "priceRegular": 1099,
-    "priceSale": 577,
+    "reviewCount": 16,
+    "priceRegular": 365,
+    "priceSale": 128,
     "priceLabel": "from",
-    "savePercent": 47,
+    "savePercent": 65,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212358_de962275-67e9-4f74-8d0b-2d590dcdd8be.png?v=1773523682&width=750"
+      "https://ashford-replica.vercel.app/images/uploads/1780553248588_1_2.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553251678_2_7.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553254318_3_11.jpg"
     ],
     "sortOrder": 2
   },
