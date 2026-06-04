@@ -10,7 +10,7 @@ const DataStore = {
 
 async function loadProducts() {
   try {
-    const res = await fetch('/content/products.json');
+    const res = await fetch('content/products.json');
     if (!res.ok) throw new Error(`Products fetch failed: ${res.status}`);
     const json = await res.json();
     DataStore.products = Array.isArray(json) ? json : (json.products || []);
@@ -24,7 +24,7 @@ async function loadProducts() {
 
 async function loadGeneral() {
   try {
-    const res = await fetch('/content/general.json');
+    const res = await fetch('content/general.json');
     if (!res.ok) throw new Error(`General fetch failed: ${res.status}`);
     DataStore.general = await res.json();
     return DataStore.general;
