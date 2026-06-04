@@ -294,9 +294,7 @@ async function githubAPI(url, method = 'GET', body = null) {
     opts.body = JSON.stringify(body);
   }
   try {
-    // Use Vercel proxy to avoid GitHub connectivity issues (no VPN needed)
-  const proxyUrl = `/api/proxy/repos/${REPO}/${url}`;
-  const res = await fetch(proxyUrl, opts);
+    const res = await fetch(`https://api.github.com/repos/${REPO}/${url}`, opts);
     if (res.status === 401) { clearToken(); showSetup(); toast('Token invalid. Please re-enter.'); throw new Error('Unauthorized'); }
     if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `GitHub API error: ${res.status}`); }
     return res.json();
