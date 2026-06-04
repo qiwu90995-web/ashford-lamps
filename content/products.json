@@ -61,19 +61,21 @@
   },
   {
     "id": "dragonsiege",
-    "name": "Ashfordlamps-DragonSiege",
+    "name": "Spaceman & Nebula Cosmic Resin Lamp",
     "collection": "fellowship",
     "preorder": false,
     "inStock": true,
     "featured": true,
     "rating": 5,
-    "reviewCount": 15,
-    "priceRegular": 1099,
-    "priceSale": 598,
+    "reviewCount": 14,
+    "priceRegular": 356,
+    "priceSale": 118,
     "priceLabel": "from",
-    "savePercent": 45,
+    "savePercent": 67,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0973/9226/3550/files/hf_20260314_212343_6a97c03c-219f-45a4-9753-3a03989f26c9.png?v=1773523721&width=750"
+      "https://ashford-replica.vercel.app/images/uploads/1780553545374_1_2.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553548873_2_10.jpg",
+      "https://ashford-replica.vercel.app/images/uploads/1780553551734_3_11.jpg"
     ],
     "sortOrder": 4
   },
