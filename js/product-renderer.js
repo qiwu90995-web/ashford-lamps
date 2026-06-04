@@ -152,3 +152,30 @@ function renderProductDetail() {
   // Update page title
   document.title = `${product.name} – AshfordLamps`;
 }
+
+/**
+ * Render collection cards from DataStore.general (Site Settings)
+ */
+function renderCollectionCards() {
+  const container = document.getElementById('collectionCards');
+  if (!container) return;
+
+  const cols = (DataStore.general && DataStore.general.collections) || [];
+  if (!cols.length) return;
+
+  container.innerHTML = cols
+    .sort((a, b) => (a.sortOrder || 99) - (b.sortOrder || 99))
+    .map(c => `
+      <a href="collection.html" class="collection-card">
+        <div class="collection-card__image">
+          <img src="${escAttr(c.image || '')}" alt="${escAttr(c.name || '')}" loading="lazy">
+          <div class="collection-card__overlay">
+            <h3${c.nameKey ? ` data-i18n="${escAttr(c.nameKey)}"` : ''}>${escHtml(c.name || '')}</h3>
+          </div>
+        </div>
+      </a>
+    `).join('');
+}
+
+function escAttr(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
